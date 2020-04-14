@@ -153,10 +153,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="End.cpp" />
+    <ClCompile Include="Figures.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Interface.cpp" />
+    <ClCompile Include="Mandaryna.cpp" />
+    <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Start.cpp" />
     <ClCompile Include="TETRIS.cpp" />
+    <ClCompile Include="Źródło.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="End.h" />
+    <ClInclude Include="Figures.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Interface.h" />
+    <ClInclude Include="Mandaryna.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="Start.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TETRIS.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
