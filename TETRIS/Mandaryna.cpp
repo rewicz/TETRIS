@@ -102,28 +102,28 @@ bool Mandaryna::checkdown(float x, float y, int direction, bool table[10][11]) /
     a= (int)((x-100) / 50) ;
     b = (int)((y-150) / 50);
     if (direction == 1) {
-        if (table[a][b] == true or table[a + 1][b] == true or table[a + 2][b] == true or table[a + 1][b + 1] == true)
+        if (table[a][b] == true or table[a + 1][b] == true or table[a + 2][b] == true or table[a + 1][b + 1] == true or y==650)
             return true;
         else
             return false;
 
     }
     if (direction == 2) {
-        if (table[a][b] == true or table[a][b+1] == true or table[a][b+2] == true or table[a + 1][b + 1] == true)
+        if (table[a][b] == true or table[a][b+1] == true or table[a][b+2] == true or table[a + 1][b + 1] == true or y==600)
             return true;
         else
             return false;
     }
 
     if (direction == 3) {
-        if (table[a][b] == true or table[a + 1][b] == true or table[a + 2][b] == true or table[a][b - 1] == true)
+        if (table[a][b] == true or table[a + 1][b] == true or table[a + 2][b] == true or table[a][b - 1] == true or y == 700)
             return true;
         else
             return false;
     }
 
     if (direction == 4) {
-        if (table[a][b] == true or table[a + 1][b] == true or table[a + 1][b-1] == true or table[a + 1][b + 1] == true)
+        if (table[a][b] == true or table[a + 1][b] == true or table[a + 1][b-1] == true or table[a + 1][b + 1] == true or y == 650)
             return true;
         else
             return false;

@@ -7,10 +7,10 @@
 #include"Game.h"
 
 
-
+using namespace std;
 int main(int argc, char** argv)
 {
-
+   
     al_init();
     Game game;
     game.start();

@@ -10,9 +10,12 @@
 #include"allegro5/allegro_primitives.h"
 #include <iostream>
 
+    bool table[10][11] = {};
+
 void Game::start()
 {
-    bool table[10][11] = {};
+    int points=0;
+
     al_init();
     ALLEGRO_DISPLAY* display;
     display = al_create_display(1280, 800);
@@ -112,8 +115,8 @@ void Game::start()
             if ((int)y % 50 == 0)//sprawdzenie stykow podzielne przez 50
             {
                 std::cout << "chuj";
-                if (figures->checkdown(x + 50, y + 50, direction, table)) {
-                    figures->save(x, y, direction, table);
+                if (figures->checkdown(x, y + 50, direction, table)) {
+                    figures->save(x, y+50, direction, table);
                     for (int i = 0; i < 10; i++)
                         for (int j = 0; j < 11; j++)
                             if (table[i][j])
@@ -123,22 +126,26 @@ void Game::start()
                     done2 = true;
                     draw = false;
                 }
-                if (y == 700) {
-                    figures->save(x, y, direction, table);
-                    for (int i = 0; i < 10; i++)
-                        for (int j = 0; j < 11; j++)
-                            if (table[i][j]) {
-                                std::cout << "drugi chuj";
-                                al_draw_filled_rectangle((float)i * 50 + 100, j * 50 + 150, i * 50 + 150, j * 50 + 200, al_map_rgb(255, 255, 255));
-                            }
-                                
-                    al_flip_display();
-                    al_clear_to_color(al_map_rgb(0, 0, 0));
-                    done2 = true;
-                    draw = false;
-                }
+                // koniec
+                //if (y == 600) {
 
+                //    figures->save(x, y, direction, table);
+                //    for (int i = 0; i < 10; i++)
+                //        for (int j = 0; j < 11; j++)
+                //            if (table[i][j]) {
+                //                std::cout << "drugi chuj";
+                //                al_draw_filled_rectangle((float)i * 50 + 100, j * 50 + 150, i * 50 + 150, j * 50 + 200, al_map_rgb(255, 255, 255));
+                //            }
+                //                
+                //    al_flip_display();
+                //    al_clear_to_color(al_map_rgb(0, 0, 0));
+                //    done2 = true;
+                //    draw = false;
+                //}
+
+                check_table(points);
             }
+            
 
 
             if (draw) {
@@ -166,3 +173,38 @@ void Game::start()
 
 
 }
+
+void Game::check_table(int points)
+{
+    std::cout << "tu";
+    int temp=0;
+    for (int i = 0; i < 11; i++) {
+        for (int j = 0; j < 10; j++) 
+            if (table[j][i])
+                temp++;
+
+            if (temp == 10) {
+                std::cout << "trzeba usun¹æ";
+                table_delete(i);
+                points++;      // poprawic
+            }
+            
+         
+           std::cout << temp <<i ;
+      temp = 0;
+    }
+      std::cout<< " ";
+}
+
+void Game::table_delete(int x){
+
+    for (; x !=1; x--) 
+        for (int j = 0; j < 10; j++)
+            table[j][x] = table[j][x-1];  // obni¿enie o 1
+
+    for (int i = 0; i < 10; i++)       // ostatni wiersz
+        table[i][0] = false;
+
+}
+
+
