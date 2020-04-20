@@ -160,6 +160,7 @@
     <ClCompile Include="Mandaryna.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Start.cpp" />
+    <ClCompile Include="Table.cpp" />
     <ClCompile Include="TETRIS.cpp" />
     <ClCompile Include="Źródło.cpp" />
   </ItemGroup>
@@ -175,6 +176,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Start.h" />
+    <ClInclude Include="Table.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TETRIS.rc" />

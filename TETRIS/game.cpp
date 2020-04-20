@@ -5,16 +5,46 @@
 #include "start.h"
 #include "Settings.h"
 #include "allegro5/allegro.h"
-#include"allegro5/allegro_font.h"
-#include"allegro5/allegro_ttf.h"
-#include"allegro5/allegro_primitives.h"
+#include "allegro5/allegro_font.h"
+#include "allegro5/allegro_ttf.h"
+#include "allegro5/allegro_primitives.h"
 #include <iostream>
+#include "Table.h"
 
-    bool table[10][11] = {};
+struct element {
+    bool enable;
+    ALLEGRO_COLOR color;
+};
+
+void Game::set_new_figure()
+{
+    //reandom figure
+    figures = &mandaryna;
+
+
+}
+
+void Game::set_new_color()
+{
+    srand(time(NULL));
+
+    ALLEGRO_COLOR colors[10] = {    al_map_rgb(255,0,0) , al_map_rgb(255,192,203) ,
+                                     al_map_rgb(255,215,0) ,al_map_rgb(255,165,0) ,
+                                      al_map_rgb(106,90,205) ,al_map_rgb(255,0,255) ,
+                                       al_map_rgb(0,255,0) ,al_map_rgb(102,205,170) ,
+                                        al_map_rgb(255,255,240) ,al_map_rgb(112,128,144) ,
+    
+    };
+    int chosen = rand() % 10;
+
+    figures->color = colors[chosen];
+}
 
 void Game::start()
 {
     int points=0;
+    Table table;
+
 
     al_init();
     ALLEGRO_DISPLAY* display;
@@ -30,8 +60,6 @@ void Game::start()
     ALLEGRO_FONT* font = al_load_font("Silicone.ttf", 45, NULL);
 
     al_init_primitives_addon();
-
-   
 
 
 
@@ -54,9 +82,11 @@ void Game::start()
     bool done = false, draw = true, done2=false;
     float x = 300, y = 150, movespeed = 1, end=250;
     int direction = 1;
-    Mandaryna mandaryna;
 
-    Figures *figures=&mandaryna;
+
+    
+
+
 
 
     al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -64,11 +94,11 @@ void Game::start()
 
     al_start_timer(timer);
     while (!done) {
-
+        set_new_figure();
+        set_new_color();
         //new element
         x = 300;
         y = 150;
-        end = 250;
         
         done2 = false;
         while(!done2) {
@@ -98,6 +128,7 @@ void Game::start()
 
                 case ALLEGRO_KEY_ESCAPE:
                     done = true;
+                    done2 = true;
                     break;
                 }
                 if (direction == 5)
@@ -114,13 +145,12 @@ void Game::start()
             }
             if ((int)y % 50 == 0)//sprawdzenie stykow podzielne przez 50
             {
-                std::cout << "chuj";
-                if (figures->checkdown(x, y + 50, direction, table)) {
-                    figures->save(x, y+50, direction, table);
-                    for (int i = 0; i < 10; i++)
-                        for (int j = 0; j < 11; j++)
-                            if (table[i][j])
-                               al_draw_filled_rectangle((float)i*50+100, j*50+150, i * 50 + 150, j * 50 + 200, al_map_rgb(255, 255, 255));
+                if (figures->checkdown(x, y + 50, direction, table.table)) {
+
+                    figures->save(x, y+50, direction, table.table);
+
+                    table.print();
+
                     al_flip_display();
                     al_clear_to_color(al_map_rgb(0, 0, 0));
                     done2 = true;
@@ -143,7 +173,7 @@ void Game::start()
                 //    draw = false;
                 //}
 
-                check_table(points);
+                table.check();
             }
             
 
@@ -152,10 +182,7 @@ void Game::start()
                 draw = false;
                 al_draw_rectangle(97, 147, 597, 697, al_map_rgb(255, 255, 0), 3);
 
-                for (int i = 0; i < 10; i++)
-                    for (int j = 0; j < 11; j++)
-                        if (table[i][j])
-                            al_draw_filled_rectangle((float)i * 50 + 100, j * 50 + 150, i * 50 + 150, j * 50 + 200, al_map_rgb(255, 255, 255));
+                table.print();
 
                 figures->draw(x, y,direction);
                 al_flip_display();
@@ -174,37 +201,5 @@ void Game::start()
 
 }
 
-void Game::check_table(int points)
-{
-    std::cout << "tu";
-    int temp=0;
-    for (int i = 0; i < 11; i++) {
-        for (int j = 0; j < 10; j++) 
-            if (table[j][i])
-                temp++;
-
-            if (temp == 10) {
-                std::cout << "trzeba usun¹æ";
-                table_delete(i);
-                points++;      // poprawic
-            }
-            
-         
-           std::cout << temp <<i ;
-      temp = 0;
-    }
-      std::cout<< " ";
-}
-
-void Game::table_delete(int x){
-
-    for (; x !=1; x--) 
-        for (int j = 0; j < 10; j++)
-            table[j][x] = table[j][x-1];  // obni¿enie o 1
-
-    for (int i = 0; i < 10; i++)       // ostatni wiersz
-        table[i][0] = false;
-
-}
 
 
