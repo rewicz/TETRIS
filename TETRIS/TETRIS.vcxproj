@@ -157,7 +157,10 @@
     <ClCompile Include="Figures.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Interface.cpp" />
+    <ClCompile Include="Jablko.cpp" />
     <ClCompile Include="Mandaryna.cpp" />
+    <ClCompile Include="Marchewka.cpp" />
+    <ClCompile Include="Pomarancza.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Start.cpp" />
     <ClCompile Include="Table.cpp" />
@@ -172,7 +175,10 @@
     <ClInclude Include="Figures.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Interface.h" />
+    <ClInclude Include="Jablko.h" />
     <ClInclude Include="Mandaryna.h" />
+    <ClInclude Include="Marchewka.h" />
+    <ClInclude Include="Pomarancza.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Start.h" />

@@ -51,6 +51,15 @@
     <ClCompile Include="Table.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="Pomarancza.cpp">
+      <Filter>Pliki źródłowe\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="Jablko.cpp">
+      <Filter>Pliki źródłowe\figures</Filter>
+    </ClCompile>
+    <ClCompile Include="Marchewka.cpp">
+      <Filter>Pliki źródłowe\figures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -81,6 +90,15 @@
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="Table.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Pomarancza.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Jablko.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Marchewka.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>

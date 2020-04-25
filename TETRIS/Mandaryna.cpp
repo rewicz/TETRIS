@@ -9,7 +9,7 @@
 #include<iostream>
 
 
-void Mandaryna::draw(float x, float y,int direction) // switch
+void Mandaryna::draw(float &x, float y,int direction) // switch
 {
     if (direction == 1) {
         if (x + 100 >= 600)
@@ -47,38 +47,6 @@ void Mandaryna::draw(float x, float y,int direction) // switch
     }
 }
 
-bool Mandaryna::checkleft(float x, float y, int direction)
-{
-    if (direction == 1) {
-        
-        x == 100;
-
-
-    }
-
-    if (direction == 2) {
-        al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-        al_draw_filled_rectangle(x, y + 50, x + 50, y + 100, this->color);
-        al_draw_filled_rectangle(x, y + 100, x + 50, y + 150, this->color);
-        al_draw_filled_rectangle(x + 50, y + 50, x + 100, y + 100, this->color);
-    }
-
-    if (direction == 3) {
-        al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-        al_draw_filled_rectangle(x, y + 50, x + 50, y + 100, this->color);
-        al_draw_filled_rectangle(x - 50, y + 50, x, y + 100, this->color);
-        al_draw_filled_rectangle(x + 50, y + 50, x + 100, y + 100, this->color);
-    }
-
-    if (direction == 4) {
-        al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-        al_draw_filled_rectangle(x, y + 50, x + 50, y + 100, this->color);
-        al_draw_filled_rectangle(x, y + 100, x + 50, y + 150, this->color);
-        al_draw_filled_rectangle(x - 50, y + 50, x, y + 100, this->color);
-    }
-
-    return true;
-}
 
 bool Mandaryna::checkright(float x, float y, int direction) // true kiedy moge
 {
@@ -138,7 +106,6 @@ void Mandaryna::save(float x, float y, int direction, Table::element table[10][1
     a = (int)((x - 100) / 50);
     b = (int)((y - 150) / 50) -1;
 
-    std::cout << a << std::endl << b;
     if (direction == 1) {
         table[a][b].enable = true;         // ustawianie czy jest zajête
         table[a + 1][b].enable = true;

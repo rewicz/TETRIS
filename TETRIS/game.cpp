@@ -1,7 +1,6 @@
 
 #include "Game.h"
 #include "Figures.h"
-#include "Mandaryna.h"
 #include "start.h"
 #include "Settings.h"
 #include "allegro5/allegro.h"
@@ -18,9 +17,26 @@ struct element {
 
 void Game::set_new_figure()
 {
-    //reandom figure
-    figures = &mandaryna;
+    srand(time(NULL));
+    int chosen = rand() % 4+1;
+    switch (chosen) {
+    case 1:
+        figures = &jablko;
+        break;
 
+    case 2:
+        figures = &mandaryna;
+        break;
+
+    case 3:
+        figures = &marchewka;
+        break;
+
+    case 4:
+        figures = &pomarancza;
+        break;
+
+    }
 
 }
 
@@ -44,7 +60,6 @@ void Game::start()
 {
     int points=0;
     Table table;
-
 
     al_init();
     ALLEGRO_DISPLAY* display;
@@ -79,8 +94,8 @@ void Game::start()
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 
-    bool done = false, draw = true, done2=false;
-    float x = 300, y = 150, movespeed = 1, end=250;
+    bool done = false, draw = true, done2=false,rotate=false;
+    float x = 300, y = 150, movespeed = 2, end=250;
     int direction = 1;
 
 
@@ -108,12 +123,12 @@ void Game::start()
             if (events.type == ALLEGRO_EVENT_KEY_DOWN) { // turn
                 switch (events.keyboard.keycode) {
                 case ALLEGRO_KEY_A:   // turn left
-                    direction +=1;
+                    direction++;
                     break; 
 
                 case ALLEGRO_KEY_S: //turn right
                     direction -= 1;
-
+                    rotate = true;
                     break;
 
                 case ALLEGRO_KEY_LEFT:
@@ -143,6 +158,8 @@ void Game::start()
                 end += movespeed;               
                 draw = true;
             }
+
+
             if ((int)y % 50 == 0)//sprawdzenie stykow podzielne przez 50
             {
                 if (figures->checkdown(x, y + 50, direction, table.table)) {
@@ -180,7 +197,7 @@ void Game::start()
 
             if (draw) {
                 draw = false;
-                al_draw_rectangle(97, 147, 597, 697, al_map_rgb(255, 255, 0), 3);
+                al_draw_rectangle(100, 150, 600, 700, al_map_rgb(255, 255, 0), 3);
 
                 table.print();
 
