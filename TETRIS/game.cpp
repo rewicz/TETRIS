@@ -7,7 +7,9 @@
 #include "allegro5/allegro_font.h"
 #include "allegro5/allegro_ttf.h"
 #include "allegro5/allegro_primitives.h"
+#include "allegro5/allegro_image.h"
 #include <iostream>
+#include <string>
 #include "Table.h"
 
 struct element {
@@ -60,7 +62,6 @@ void Game::start()
 {
     int points=0;
     Table table;
-
     al_init();
     ALLEGRO_DISPLAY* display;
     display = al_create_display(1280, 800);
@@ -71,6 +72,7 @@ void Game::start()
 
     al_init_font_addon();
     al_init_ttf_addon();
+    al_init_image_addon();
 
     ALLEGRO_FONT* font = al_load_font("Silicone.ttf", 45, NULL);
 
@@ -90,6 +92,12 @@ void Game::start()
     ALLEGRO_TIMER* timer = al_create_timer(1 / FPS);
 
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
+
+    ALLEGRO_BITMAP* frame = al_load_bitmap("newframe.png");
+    ALLEGRO_BITMAP* background = al_load_bitmap("fire.png");
+    ALLEGRO_BITMAP* smallframe = al_load_bitmap("smallframe.png");
+//    ALLEGRO_FONT* font = al_load_font("Silicone.ttf", 60, NULL);
+
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
@@ -114,11 +122,13 @@ void Game::start()
         //new element
         x = 300;
         y = 150;
-        
+
         done2 = false;
         while(!done2) {
             //game events
-            ALLEGRO_EVENT events;
+            ALLEGRO_EVENT events;     
+            al_draw_bitmap(background, 0, 0, 0);
+
             al_wait_for_event(event_queue, &events);
             if (events.type == ALLEGRO_EVENT_KEY_DOWN) { // turn
                 switch (events.keyboard.keycode) {
@@ -164,7 +174,7 @@ void Game::start()
             {
                 if (figures->checkdown(x, y + 50, direction, table.table)) {
 
-                    figures->save(x, y+50, direction, table.table);
+                    figures->save(x, y + 50, direction, table.table);
 
                     table.print();
 
@@ -190,20 +200,29 @@ void Game::start()
                 //    draw = false;
                 //}
 
-                table.check();
+                table.check(movespeed);
             }
             
 
 
             if (draw) {
                 draw = false;
-                al_draw_rectangle(100, 150, 600, 700, al_map_rgb(255, 255, 0), 3);
+               // al_draw_rectangle(100, 150, 600, 700, al_map_rgb(255, 255, 0), 3);
 
                 table.print();
 
                 figures->draw(x, y,direction);
+                al_draw_bitmap(frame, -39, 85, 0);
+                al_draw_bitmap(smallframe, 700, 20, 0);
+                al_draw_bitmap(smallframe, 700, 350, 0);
+                al_draw_text(font, al_map_rgb(226, 34, 44), 1000, 160, ALLEGRO_ALIGN_CENTER, "SCORE");
+        //        al_draw_text(font, al_map_rgb(226, 34, 44), 1000, 160, ALLEGRO_ALIGN_CENTER, static_cast<char>(points));
+
+
                 al_flip_display();
                 al_clear_to_color(al_map_rgb(0, 0, 0));
+
+                
             }
         }
     }
@@ -213,7 +232,9 @@ void Game::start()
     al_destroy_font(font);
     al_destroy_event_queue(event_queue);
     al_destroy_display(display);
-
+    al_destroy_font(font);
+   al_destroy_bitmap(smallframe);
+   al_destroy_bitmap(smallframe);
 
 
 }

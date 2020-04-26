@@ -12,10 +12,11 @@ int main(int argc, char** argv)
 {
    
     al_init();
+
     Game game;
     game.start();
     Start start;
-    start.view();
+    start.view2();
     
 
     std::cout << "tu";

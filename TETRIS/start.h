@@ -9,6 +9,7 @@ class Start :
 {
 public:
 	void view();
+	void view2();
 
 
 };

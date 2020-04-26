@@ -11,7 +11,7 @@ void Table::print()
                 al_draw_filled_rectangle((float)i * 50 + 100, j * 50 + 150, i * 50 + 150, j * 50 + 200, table[i][j].color);
 }
 
-void Table::check()
+void Table::check(int speed)
 {
     int temp = 0;
     for (int i = 0; i < 11; i++) {
@@ -21,7 +21,7 @@ void Table::check()
 
         if (temp == 10) {
             delete_line(i);
-            points++;      // poprawic
+            points += speed;    // poprawic
         }
 
         temp = 0;

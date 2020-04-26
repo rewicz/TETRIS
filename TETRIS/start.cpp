@@ -3,6 +3,7 @@
 #include "allegro5/allegro.h"
 #include"allegro5/allegro_font.h"
 #include"allegro5/allegro_ttf.h"
+#include"allegro5/allegro_primitives.h"
 #include <iostream>
 
 void Start::view()
@@ -60,5 +61,32 @@ void Start::view()
     al_destroy_font(font_title);
     al_destroy_font(font_signature);
     al_destroy_event_queue(event_queue);
+    al_destroy_display(display);
+}
+
+void Start::view2()
+{
+    ALLEGRO_DISPLAY* display;
+    display = al_create_display(1280, 800);
+    al_set_window_title(display, "TETRIS");
+
+    al_init_font_addon();
+    al_init_primitives_addon();
+    al_init_ttf_addon();
+
+    ALLEGRO_FONT* font_title = al_load_font("Silicone.ttf", 60, NULL);
+    ALLEGRO_FONT* font_signature = al_load_font("AveBetwan_PERSONAL_USE.ttf", 30, NULL);
+
+
+    std::cout << "chuj";
+    al_install_keyboard();
+
+
+    al_draw_rectangle(100, 150, 600, 700, al_map_rgb(255, 255, 0), 3);
+
+    al_flip_display();
+    al_rest(5.0f);
+    al_destroy_font(font_title);
+    al_destroy_font(font_signature);
     al_destroy_display(display);
 }
