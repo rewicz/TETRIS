@@ -14,16 +14,17 @@ void Marchewka::draw(float &x, float y, int direction) // switch
     if (direction == 1 or direction ==3) {
         if (x + 50 == 600)
             x -= 100;
-        al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-        al_draw_filled_rectangle(x + 50, y, x + 100, y + 50, this->color);
-        al_draw_filled_rectangle(x + 100, y, x + 150, y + 50, this->color);
+        draw_square(x, y);
+        draw_square(x + 50, y);
+        draw_square(x + 100, y );
+
 
     }
 
     if (direction == 2 or direction == 4) {
-        al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-        al_draw_filled_rectangle(x, y + 50, x + 50, y + 100, this->color);
-        al_draw_filled_rectangle(x, y + 100, x + 50, y + 150, this->color);
+        draw_square(x, y);
+        draw_square(x , y + 50);
+        draw_square(x , y + 100 );
     }
 
 

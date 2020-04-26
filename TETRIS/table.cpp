@@ -5,10 +5,14 @@
 
 void Table::print()
 {
+    ALLEGRO_BITMAP* square = al_load_bitmap("square.png");
     for (int i = 0; i < 10; i++)
         for (int j = 0; j < 11; j++)
-            if (table[i][j].enable)
+            if (table[i][j].enable) {
                 al_draw_filled_rectangle((float)i * 50 + 100, j * 50 + 150, i * 50 + 150, j * 50 + 200, table[i][j].color);
+                al_draw_bitmap(square, (float)i * 50 + 100, j * 50 + 150, 0);
+                al_draw_rectangle((float)i * 50 + 100, j * 50 + 150, i * 50 + 150, j * 50 + 200, al_map_rgb(29,29,29),3);
+            }
 }
 
 void Table::check(int speed)

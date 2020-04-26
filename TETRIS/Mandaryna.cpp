@@ -14,36 +14,35 @@ void Mandaryna::draw(float &x, float y,int direction) // switch
     if (direction == 1) {
         if (x + 100 >= 600)
             x -= 50;
-        al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-        al_draw_filled_rectangle(x + 50, y, x + 100, y + 50, this->color);
-        al_draw_filled_rectangle(x + 50, y + 50, x + 100, y+100 , this->color);
-        al_draw_filled_rectangle(x + 100, y, x + 150, y + 50, this->color);
+        draw_square(x, y);
+        draw_square(x+50, y);
+        draw_square(x+50, y+50);
+        draw_square(x+100, y);
+
 
     }
 
     if (direction == 2) {
-        al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-        al_draw_filled_rectangle(x, y + 50, x + 50, y + 100, this->color);
-        al_draw_filled_rectangle(x, y + 100, x + 50, y + 150, this->color);
-        al_draw_filled_rectangle(x+50 , y+50, x + 100, y + 100, this->color);
+        draw_square(x, y);
+        draw_square(x , y+ 50);
+        draw_square(x , y + 100);
+        draw_square(x + 50, y+50);
     }
 
     if (direction == 3) {
         if (x + 100 >= 600)
             x -= 50;
-        al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-
-        al_draw_filled_rectangle(x+50, y , x+100, y + 50, this->color);
-        al_draw_filled_rectangle(x +100, y, x+150, y+50 , this->color);
-        al_draw_filled_rectangle(x+50, y -50, x + 100, y , this->color);
+        draw_square(x, y);
+        draw_square(x+ 50, y );
+        draw_square(x+ 100, y );
+        draw_square(x + 50, y - 50);
     }
 
     if (direction == 4) {
-        al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-
-        al_draw_filled_rectangle(x+50 , y, x +100, y + 50, this->color);
-        al_draw_filled_rectangle(x+50 , y-50, x+100 , y , this->color);
-        al_draw_filled_rectangle(x +50, y + 50, x+100, y + 100, this->color);
+        draw_square(x, y);
+        draw_square(x + 50, y);
+        draw_square(x + 50, y - 50);
+        draw_square(x + 50, y + 50);
     }
 }
 
@@ -112,7 +111,7 @@ void Mandaryna::save(float x, float y, int direction, Table::element table[10][1
         table[a + 2][b].enable = true;
         table[a + 1][b + 1].enable = true; 
 
-        table[a][b].color=this->color;      //ustawianie koloru
+        table[a][b].color = this->color;      //ustawianie koloru
         table[a + 1][b].color = this->color;
         table[a + 2][b].color = this->color;
         table[a + 1][b + 1].color = this->color;

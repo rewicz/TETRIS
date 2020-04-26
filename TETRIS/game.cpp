@@ -178,10 +178,10 @@ void Game::start()
 
                     table.print();
 
-                    al_flip_display();
-                    al_clear_to_color(al_map_rgb(0, 0, 0));
+
+
                     done2 = true;
-                    draw = false;
+
                 }
                 // koniec
                 //if (y == 600) {

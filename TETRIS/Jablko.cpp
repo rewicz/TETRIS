@@ -14,10 +14,11 @@ void Jablko::draw(float &x, float y, int direction) // switch
 
       if (x + 50 >= 600)
             x -= 50;
-      al_draw_filled_rectangle(x, y, x + 50, y + 50, this->color);
-      al_draw_filled_rectangle(x + 50, y, x + 100, y + 50, this->color);
-      al_draw_filled_rectangle(x , y + 50, x + 50, y + 100, this->color);
-      al_draw_filled_rectangle(x + 50, y+50, x + 100, y + 100, this->color);
+      draw_square(x, y);
+      draw_square(x + 50, y);
+      draw_square(x + 50, y + 50);
+      draw_square(x , y + 50);
+
 }
 
 
