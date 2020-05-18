@@ -2,24 +2,24 @@
 //
 
 #include <iostream>
-#include"allegro5/allegro.h"
-#include"Start.h"
-#include"Game.h"
-
-
+#include "View.h"
+#include "Settings.h"
+#include "String"
+#include "game.h"
+#include "test.h"
 using namespace std;
+
 int main(int argc, char** argv)
 {
-   
-    al_init();
+  //  test test2;
+   // test2.go();
 
-    Game game;
-    game.start();
-    Start start;
-    start.view2();
-    
 
-    std::cout << "tu";
+
+    View view;
+    // try
+    view.view();
+
 
     return 0;
 }

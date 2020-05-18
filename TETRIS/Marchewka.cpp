@@ -9,7 +9,7 @@
 #include<iostream>
 
 
-void Marchewka::draw(float &x, float y, int direction) // switch
+void Marchewka::draw_and_check(float &x, float y, int direction) // switch
 {
     if (direction == 1 or direction ==3) {
         if (x + 50 == 600)
@@ -28,6 +28,21 @@ void Marchewka::draw(float &x, float y, int direction) // switch
     }
 
 
+}
+void Marchewka::draw(float x, float y, int direction) // switch
+{
+    if (direction == 1 or direction ==3) {
+
+        draw_square(x, y);
+        draw_square(x + 50, y);
+        draw_square(x + 100, y );
+    }
+
+    if (direction == 2 or direction == 4) {
+        draw_square(x, y);
+        draw_square(x , y + 50);
+        draw_square(x , y + 100 );
+    }
 }
 
 

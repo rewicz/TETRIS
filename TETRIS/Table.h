@@ -9,10 +9,9 @@ public:
 		bool enable=false;
 		ALLEGRO_COLOR color;
 	};
-	int points;
 	element table[10][11];
 	void print();
-	void check(int speed);
+	void check(int speed, int points);
 	void delete_line(int x);
 };
 

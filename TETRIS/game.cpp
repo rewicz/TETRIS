@@ -20,22 +20,22 @@ struct element {
 void Game::set_new_figure()
 {
     srand(time(NULL));
-    int chosen = rand() % 4+1;
+    int chosen = rand() % objects+1;
     switch (chosen) {
     case 1:
-        figures = &jablko;
+        newfigure = &jablko;
         break;
 
     case 2:
-        figures = &mandaryna;
+        newfigure = &mandaryna;
         break;
 
     case 3:
-        figures = &marchewka;
+        newfigure = &marchewka;
         break;
 
     case 4:
-        figures = &pomarancza;
+        newfigure = &pomarancza;
         break;
 
     }
@@ -44,6 +44,7 @@ void Game::set_new_figure()
 
 void Game::set_new_color()
 {
+
     srand(time(NULL));
 
     ALLEGRO_COLOR colors[10] = {    al_map_rgb(255,0,0) , al_map_rgb(255,192,203) ,
@@ -55,26 +56,28 @@ void Game::set_new_color()
     };
     int chosen = rand() % 10;
 
-    figures->color = colors[chosen];
+    newfigure->color = colors[chosen];
+}
+void Game::set_configuration(Configuration conf) {
+    level = conf.level;
+    objects=conf.objects;
 }
 
-void Game::start()
+bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration configuration)
 {
-    int points=0;
+    set_configuration(configuration);
+     set_new_figure();
+     set_new_color();
     Table table;
     al_init();
-    ALLEGRO_DISPLAY* display;
-    display = al_create_display(1280, 800);
-    al_set_window_title(display, "TETRIS");
 
-    enum DIRECTION { DOWN, UP, LEFT, RIGHT };
 
 
     al_init_font_addon();
     al_init_ttf_addon();
     al_init_image_addon();
 
-    ALLEGRO_FONT* font = al_load_font("Silicone.ttf", 45, NULL);
+
 
     al_init_primitives_addon();
 
@@ -93,21 +96,25 @@ void Game::start()
 
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
 
-    ALLEGRO_BITMAP* frame = al_load_bitmap("newframe.png");
-    ALLEGRO_BITMAP* background = al_load_bitmap("fire.png");
+    ALLEGRO_BITMAP* frame = al_load_bitmap("mainframe.png");
+    ALLEGRO_BITMAP* background = al_load_bitmap("background.png");
     ALLEGRO_BITMAP* smallframe = al_load_bitmap("smallframe.png");
-//    ALLEGRO_FONT* font = al_load_font("Silicone.ttf", 60, NULL);
+
+    ALLEGRO_FONT* font_silicone = al_load_font("Silicone.ttf", 50, NULL);
+    ALLEGRO_FONT* font_silicone_small = al_load_font("Silicone.ttf", 35, NULL);
+
+    ALLEGRO_COLOR yellow = al_map_rgb(255, 255, 0);
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 
     bool done = false, draw = true, done2=false,rotate=false;
-    float x = 300, y = 150, movespeed = 2, end=250;
+    float x = 300, y = 150, end=250;
     int direction = 1;
 
 
-    
+
 
 
 
@@ -116,9 +123,12 @@ void Game::start()
 
 
     al_start_timer(timer);
-    while (!done) {
+    while (!done) { 
+        figure = newfigure;
         set_new_figure();
         set_new_color();
+        direction = 1;
+
         //new element
         x = 300;
         y = 150;
@@ -128,7 +138,6 @@ void Game::start()
             //game events
             ALLEGRO_EVENT events;     
             al_draw_bitmap(background, 0, 0, 0);
-
             al_wait_for_event(event_queue, &events);
             if (events.type == ALLEGRO_EVENT_KEY_DOWN) { // turn
                 switch (events.keyboard.keycode) {
@@ -147,7 +156,7 @@ void Game::start()
                     break;
 
                 case ALLEGRO_KEY_RIGHT:
-                    if (figures->checkright(x,y,direction))
+                    if (figure->checkright(x,y,direction))
                         x += 50;
                     break;
 
@@ -164,17 +173,17 @@ void Game::start()
             }
 
             if (events.type == ALLEGRO_EVENT_TIMER) {
-                y += movespeed;
-                end += movespeed;               
+                y += level;
+                end += level;               
                 draw = true;
             }
 
 
             if ((int)y % 50 == 0)//sprawdzenie stykow podzielne przez 50
             {
-                if (figures->checkdown(x, y + 50, direction, table.table)) {
+                if (figure->checkdown(x, y + 50, direction, table.table)) {
 
-                    figures->save(x, y + 50, direction, table.table);
+                    figure->save(x, y + 50, direction, table.table);
 
                     table.print();
 
@@ -183,60 +192,46 @@ void Game::start()
                     done2 = true;
 
                 }
-                // koniec
-                //if (y == 600) {
 
-                //    figures->save(x, y, direction, table);
-                //    for (int i = 0; i < 10; i++)
-                //        for (int j = 0; j < 11; j++)
-                //            if (table[i][j]) {
-                //                std::cout << "drugi chuj";
-                //                al_draw_filled_rectangle((float)i * 50 + 100, j * 50 + 150, i * 50 + 150, j * 50 + 200, al_map_rgb(255, 255, 255));
-                //            }
-                //                
-                //    al_flip_display();
-                //    al_clear_to_color(al_map_rgb(0, 0, 0));
-                //    done2 = true;
-                //    draw = false;
-                //}
-
-                table.check(movespeed);
+                table.check(level,points);
             }
             
 
 
             if (draw) {
                 draw = false;
-               // al_draw_rectangle(100, 150, 600, 700, al_map_rgb(255, 255, 0), 3);
 
                 table.print();
 
-                figures->draw(x, y,direction);
+                figure->draw(x, y,direction);
                 al_draw_bitmap(frame, -39, 85, 0);
                 al_draw_bitmap(smallframe, 700, 20, 0);
                 al_draw_bitmap(smallframe, 700, 350, 0);
-                al_draw_text(font, al_map_rgb(226, 34, 44), 1000, 160, ALLEGRO_ALIGN_CENTER, "SCORE");
-        //        al_draw_text(font, al_map_rgb(226, 34, 44), 1000, 160, ALLEGRO_ALIGN_CENTER, static_cast<char>(points));
 
 
+
+                graphics.print_text(font_silicone,1010, 160,yellow,"SCORE");
+                graphics.print_text(font_silicone,1010, 235,yellow,std::to_string(points));
+
+                graphics.print_text(font_silicone_small,1010, 480,yellow,"NEXT FIGURE");
+                newfigure->draw(945, 530, 1);
                 al_flip_display();
                 al_clear_to_color(al_map_rgb(0, 0, 0));
 
                 
             }
-        }
+        }       
+
     }
 
 
     al_rest(3.0f);
-    al_destroy_font(font);
+    al_destroy_font(font_silicone);
     al_destroy_event_queue(event_queue);
-    al_destroy_display(display);
-    al_destroy_font(font);
-   al_destroy_bitmap(smallframe);
-   al_destroy_bitmap(smallframe);
+    al_destroy_bitmap(smallframe);
+    al_destroy_bitmap(smallframe);
 
-
+   return true;
 }
 
 

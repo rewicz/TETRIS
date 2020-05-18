@@ -1,15 +1,11 @@
 #pragma once
-#include "interface.h"
-class start
-{
-};
+#include "allegro5/allegro.h"
+#include "Graphics.h"
 
-class Start :
-	public Interface
+class Start 
 {
 public:
-	void view();
-	void view2();
+	bool start(ALLEGRO_DISPLAY* display, Graphics graphics);
 
 
 };

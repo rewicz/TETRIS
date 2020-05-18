@@ -153,10 +153,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="End.cpp" />
     <ClCompile Include="Figures.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Interface.cpp" />
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Jablko.cpp" />
     <ClCompile Include="Mandaryna.cpp" />
     <ClCompile Include="Marchewka.cpp" />
@@ -164,17 +165,21 @@
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Start.cpp" />
     <ClCompile Include="Table.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="TETRIS.cpp" />
+    <ClCompile Include="View.cpp" />
     <ClCompile Include="Źródło.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="all.h" />
+    <ClInclude Include="Configuration.h" />
     <ClInclude Include="End.h" />
     <ClInclude Include="Figures.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Interface.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="Jablko.h" />
     <ClInclude Include="Mandaryna.h" />
     <ClInclude Include="Marchewka.h" />
@@ -183,6 +188,8 @@
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Start.h" />
     <ClInclude Include="Table.h" />
+    <ClInclude Include="test.h" />
+    <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TETRIS.rc" />

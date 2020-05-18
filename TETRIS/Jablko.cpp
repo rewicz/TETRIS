@@ -9,11 +9,20 @@
 #include<iostream>
 
 
-void Jablko::draw(float &x, float y, int direction) // switch
+void Jablko::draw_and_check(float &x, float y, int direction) // switch
 {
 
       if (x + 50 >= 600)
             x -= 50;
+      draw_square(x, y);
+      draw_square(x + 50, y);
+      draw_square(x + 50, y + 50);
+      draw_square(x , y + 50);
+
+}
+void Jablko::draw(float x, float y, int direction) // switch
+{
+
       draw_square(x, y);
       draw_square(x + 50, y);
       draw_square(x + 50, y + 50);

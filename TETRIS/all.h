@@ -1,0 +1,13 @@
+#pragma once
+#include "Game.h"
+#include "Figures.h"
+#include "start.h"
+#include "Settings.h"
+#include "allegro5/allegro.h"
+#include "allegro5/allegro_font.h"
+#include "allegro5/allegro_ttf.h"
+#include "allegro5/allegro_primitives.h"
+#include "allegro5/allegro_image.h"
+#include <iostream>
+#include <string>
+#include "Table.h"

@@ -15,7 +15,7 @@ void Table::print()
             }
 }
 
-void Table::check(int speed)
+void Table::check(int speed,int points)
 {
     int temp = 0;
     for (int i = 0; i < 11; i++) {
@@ -25,7 +25,7 @@ void Table::check(int speed)
 
         if (temp == 10) {
             delete_line(i);
-            points += speed;    // poprawic
+            points += speed;  
         }
 
         temp = 0;

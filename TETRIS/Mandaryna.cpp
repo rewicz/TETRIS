@@ -9,7 +9,7 @@
 #include<iostream>
 
 
-void Mandaryna::draw(float &x, float y,int direction) // switch
+void Mandaryna::draw_and_check(float &x, float y,int direction) // switch
 {
     if (direction == 1) {
         if (x + 100 >= 600)
@@ -32,6 +32,40 @@ void Mandaryna::draw(float &x, float y,int direction) // switch
     if (direction == 3) {
         if (x + 100 >= 600)
             x -= 50;
+        draw_square(x, y);
+        draw_square(x+ 50, y );
+        draw_square(x+ 100, y );
+        draw_square(x + 50, y - 50);
+    }
+
+    if (direction == 4) {
+        draw_square(x, y);
+        draw_square(x + 50, y);
+        draw_square(x + 50, y - 50);
+        draw_square(x + 50, y + 50);
+    }
+}
+
+void Mandaryna::draw(float x, float y,int direction) // switch
+{
+    if (direction == 1) {
+
+        draw_square(x, y);
+        draw_square(x+50, y);
+        draw_square(x+50, y+50);
+        draw_square(x+100, y);
+
+
+    }
+
+    if (direction == 2) {
+        draw_square(x, y);
+        draw_square(x , y+ 50);
+        draw_square(x , y + 100);
+        draw_square(x + 50, y+50);
+    }
+
+    if (direction == 3) {
         draw_square(x, y);
         draw_square(x+ 50, y );
         draw_square(x+ 100, y );
