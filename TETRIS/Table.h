@@ -11,7 +11,8 @@ public:
 	};
 	element table[10][11];
 	void print();
-	void check(int speed, int points);
+	void check(int speed, int &points);
 	void delete_line(int x);
+	bool isend();
 };
 

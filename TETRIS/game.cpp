@@ -63,28 +63,23 @@ void Game::set_configuration(Configuration conf) {
     objects=conf.objects;
 }
 
+
+
 bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration configuration)
 {
     set_configuration(configuration);
-     set_new_figure();
-     set_new_color();
+    set_new_figure();
+    set_new_color();
     Table table;
-    al_init();
-
+    End end;
 
 
     al_init_font_addon();
     al_init_ttf_addon();
     al_init_image_addon();
-
-
-
     al_init_primitives_addon();
 
 
-
-    al_flip_display();
-    al_rest(3.0f);
 
 
 
@@ -109,18 +104,13 @@ bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration confi
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 
-    bool done = false, draw = true, done2=false,rotate=false;
-    float x = 300, y = 150, end=250;
+    bool done = false, draw = true, done2=false,rotate=false,next=false;
+    float x = 300, y = 150, endoffigure=250;
     int direction = 1;
 
 
-
-
-
-
-
     al_clear_to_color(al_map_rgb(0, 0, 0));
-
+    
 
     al_start_timer(timer);
     while (!done) { 
@@ -143,11 +133,12 @@ bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration confi
                 switch (events.keyboard.keycode) {
                 case ALLEGRO_KEY_A:   // turn left
                     direction++;
+                    figure->draw_and_check(x, y, direction);
                     break; 
 
                 case ALLEGRO_KEY_S: //turn right
                     direction -= 1;
-                    rotate = true;
+                    figure->draw_and_check(x, y, direction);
                     break;
 
                 case ALLEGRO_KEY_LEFT:
@@ -174,7 +165,7 @@ bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration confi
 
             if (events.type == ALLEGRO_EVENT_TIMER) {
                 y += level;
-                end += level;               
+                endoffigure += level;               
                 draw = true;
             }
 
@@ -185,9 +176,12 @@ bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration confi
 
                     figure->save(x, y + 50, direction, table.table);
 
-                    table.print();
-
-
+                    if (table.isend())
+                    {
+                        next = !end.start(display, points, graphics);
+                        done = true;
+                        draw = false;
+                    }
 
                     done2 = true;
 
@@ -229,9 +223,8 @@ bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration confi
     al_destroy_font(font_silicone);
     al_destroy_event_queue(event_queue);
     al_destroy_bitmap(smallframe);
-    al_destroy_bitmap(smallframe);
 
-   return true;
+   return next;
 }
 
 

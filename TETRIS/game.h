@@ -7,6 +7,7 @@
 #include "Figures.h"
 #include "Jablko.h"
 #include "Configuration.h"
+#include "End.h"
 
 
 class Game{

@@ -2,6 +2,7 @@
 #include "Table.h"
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_primitives.h"
+#include <iostream>
 
 void Table::print()
 {
@@ -15,7 +16,7 @@ void Table::print()
             }
 }
 
-void Table::check(int speed,int points)
+void Table::check(int speed,int &points)
 {
     int temp = 0;
     for (int i = 0; i < 11; i++) {
@@ -40,4 +41,15 @@ void Table::delete_line(int x)
 
     for (int i = 0; i < 10; i++)       // ostatni wiersz
         table[i][0].enable = false;
+}
+
+bool Table::isend()
+{
+    for (int i = 0; i < 10; i++) {
+        if (table[i][1].enable) {
+            return true;
+            
+        }
+    }
+    return false;
 }

@@ -1,12 +1,16 @@
 #pragma once
 #include "allegro5/allegro.h"
 #include "Graphics.h"
-
+#include "Table.h"
+#include "allegro5/allegro_font.h"
+#include "allegro5/allegro_ttf.h"
+#include "allegro5/allegro_primitives.h"
+#include "allegro5/allegro_image.h"
 
 class End 
 {
 public:
-	bool start(ALLEGRO_DISPLAY* display, Graphics graphics);
+	bool start(ALLEGRO_DISPLAY* display, int points, Graphics graphics);
 
 };
 

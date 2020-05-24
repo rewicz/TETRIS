@@ -30,7 +30,7 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
     ALLEGRO_BITMAP* orange_button = al_load_bitmap("orange_button.png");
     ALLEGRO_BITMAP* red_button = al_load_bitmap("red_button.png");
 
-
+    ALLEGRO_BITMAP* background = al_load_bitmap("settings.png");
 
 
 
@@ -40,6 +40,7 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
 
 
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
+    ALLEGRO_EVENT events;
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_register_event_source(event_queue, al_get_mouse_event_source());
     
@@ -48,8 +49,6 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
     int mouse_x, mouse_y,click_x,click_y;
 
     while (!done) {
-
-        ALLEGRO_EVENT events;
         al_wait_for_event(event_queue, &events);
         if (events.type == ALLEGRO_EVENT_KEY_DOWN) {
             switch (events.keyboard.keycode) {
@@ -64,9 +63,10 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
             }
         }
 
-        else if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-
-            done = true;     //hard exit
+        else if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { //hard exit
+            key_escape = true;
+            done = true;  
+            std::cout << "cos"; 
         }
 
         else  if (events.type == ALLEGRO_EVENT_MOUSE_AXES) {
@@ -110,7 +110,7 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
        
         if (draw) {
             al_clear_to_color(al_map_rgb(0, 0, 0));
-
+            al_draw_bitmap(background, 0, 0, 0);
             graphics.print_text(font, 640, 50, yellow, "SETTINGS");
 
             graphics.print_text(font_roboto_black, 640, 150, yellow, "LEVEL");

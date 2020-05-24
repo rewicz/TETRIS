@@ -26,17 +26,16 @@ void View::view()
 	Start start;
 	Game game;
 	End end;
-	//try
+
 	if (start.start(display, graphics))
 		// fast end
 		return;
-	if (settings.start(display, graphics, configuration))
-		return;
-	if (game.start(display, graphics,configuration))
-		//fast end
-		return;
-	if (end.start(display, graphics))
-		return;
+	//try
+	do {
+		if (settings.start(display, graphics, configuration))
+			return;
+	} while (game.start(display, graphics, configuration));
+	
 
 
 
