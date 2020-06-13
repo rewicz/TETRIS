@@ -19,6 +19,7 @@ void View::view()
 	}
 
 	try {
+
 		if (start.start(display, graphics))
 			return; // hard exit
 
@@ -26,6 +27,7 @@ void View::view()
 			if (settings.start(display, graphics, configuration))
 				return; // hard exit
 		} while (game.start(display, graphics, configuration));
+
 	}
 	catch (std::exception& e) {
 		std::cout << "Error: " << e.what();

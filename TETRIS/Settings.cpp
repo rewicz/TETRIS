@@ -15,6 +15,7 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
     al_install_mouse();
     
     ALLEGRO_FONT* font = al_load_font("Silicone.ttf", 45, NULL);
+    ALLEGRO_FONT* font_small = al_load_font("Roboto-black.ttf", 15, NULL);
     ALLEGRO_FONT* font_signature = al_load_font("AveBetwan_PERSONAL_USE.ttf", 30, NULL);
     ALLEGRO_FONT* font_roboto_black = al_load_font("Roboto-black.ttf",35,NULL);
 
@@ -114,6 +115,10 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
 
             al_draw_bitmap(background, 0, 0, 0);
             graphics.print_text(font, 640, 50, yellow, "SETTINGS");
+            graphics.print_text(font_small, 1100, 650, yellow,"Movement");
+            graphics.print_text(font_small, 1050, 700, yellow, "Left - BUTTON LEFT    Right - BUTTON RIGHT");
+            graphics.print_text(font_small, 1100, 750, yellow, "Rotate left - A   Rotate right - S");
+
 
             graphics.print_text(font_roboto_black, 640, 150, yellow, "LEVEL");
             if (conf.level == 1) {

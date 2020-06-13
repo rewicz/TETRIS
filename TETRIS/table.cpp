@@ -53,3 +53,10 @@ bool Table::isend()
     }
     return false;
 }
+
+void Table::clear()
+{
+    for (int i = 0; i < 10; i++)
+        for (int j = 0; j < 11; j++)
+            table[i][j].enable = false;
+}

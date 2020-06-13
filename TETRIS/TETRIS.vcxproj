@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -161,7 +161,6 @@
     <ClCompile Include="Jablko.cpp" />
     <ClCompile Include="Mandaryna.cpp" />
     <ClCompile Include="Marchewka.cpp" />
-    <ClCompile Include="Net.cpp" />
     <ClCompile Include="NewException.cpp" />
     <ClCompile Include="Pomarancza.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -171,6 +170,7 @@
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -182,7 +182,6 @@
     <ClInclude Include="Jablko.h" />
     <ClInclude Include="Mandaryna.h" />
     <ClInclude Include="Marchewka.h" />
-    <ClInclude Include="Net.h" />
     <ClInclude Include="NewException.h" />
     <ClInclude Include="Pomarancza.h" />
     <ClInclude Include="resource.h" />

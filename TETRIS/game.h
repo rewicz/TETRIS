@@ -18,13 +18,14 @@
 #include "allegro5/allegro.h"
 #include "NewException.h"
 
+#include <map>
 #include <string>
 #include <random>
 #include <chrono>
 #include <iostream>
 
 class Game{
-
+	typedef std::multimap<std::string, int> History;
 	Mandaryna mandaryna;
 	Pomarancza pomarancza;
 	Marchewka marchewka;
@@ -32,6 +33,7 @@ class Game{
 	Figures* figure, *newfigure;
 	Table table;
 	End end;
+	History history;
 
 	std::vector< ALLEGRO_COLOR> colors;
 	const float FPS = 60;
@@ -40,6 +42,8 @@ class Game{
 	void set_new_figure();
 	void set_new_color();
 	void set_configuration(Configuration configuration);
+	void show_history();
+	void set_base_settings();
 public:
 	bool start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration configuration);
 };

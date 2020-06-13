@@ -62,13 +62,10 @@ void Game::set_new_color() //
 {
     srand(time(NULL));
     int chosen;
-    do
-    {
+    do{
         chosen = rand() % colors.size();
-
     } while (figure->color.r == colors[chosen].r and colors[chosen].g == newfigure->color.g and colors[chosen].b == newfigure->color.b);
-
-        newfigure->color = colors[chosen];
+    newfigure->color = colors[chosen];
 
 }
 
@@ -77,10 +74,19 @@ void Game::set_configuration(Configuration conf) {
     objects=conf.objects;
 }
 
+void Game::show_history(){
+    for (std::pair<std::string, int> elem : history)
+        std::cout << elem.first << " :: " << elem.second << std::endl;
+}
+void Game::set_base_settings() {
+    history.clear();
+    table.clear();
+}
 
 
 bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration configuration)
 {  
+    set_base_settings();
     al_clear_to_color(al_map_rgb(0, 0, 0));
     set_configuration(configuration);
     init_colors();
@@ -146,6 +152,7 @@ bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration confi
 
             al_wait_for_event(event_queue, &events);
             if (events.type == ALLEGRO_EVENT_KEY_DOWN) { // turn
+                history.insert(std::make_pair(typeid(*figure).name(), direction));
                 switch (events.keyboard.keycode) {
                 case ALLEGRO_KEY_A:   // turn left
                     direction++;
@@ -192,6 +199,7 @@ bool Game::start(ALLEGRO_DISPLAY *display, Graphics graphics,Configuration confi
 
                     if (table.isend())  // check end
                     {
+                        show_history();
                         next = !end.start(display, points, graphics);
                         done = true;
                         draw = false;

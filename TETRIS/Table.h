@@ -14,5 +14,6 @@ public:
 	void check(int speed, int &points);
 	void delete_line(int x);
 	bool isend();
+	void clear();
 };
 
