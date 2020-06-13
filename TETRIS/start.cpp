@@ -6,6 +6,7 @@
 #include"allegro5/allegro_ttf.h"
 #include "allegro5/allegro_image.h"
 #include"allegro5/allegro_primitives.h"
+#include "NewException.h"
 #include <iostream>
 
 bool Start::start(ALLEGRO_DISPLAY* display, Graphics graphics)
@@ -15,20 +16,26 @@ bool Start::start(ALLEGRO_DISPLAY* display, Graphics graphics)
     al_init_image_addon();
 
     ALLEGRO_FONT* Silicone = al_load_font("Silicone.ttf", 100, NULL);
-    ALLEGRO_FONT* font_signature = al_load_font("AveBetwan_PERSONAL_USE.ttf", 30, NULL);
+    if(!Silicone)
+        throw (NewException("Silicone.ttf"));
+
+    ALLEGRO_FONT* AveBetwan = al_load_font("AveBetwan_PERSONAL_USE.ttf", 30, NULL);
+    if(!AveBetwan)
+        throw NewException("AveBetwan_PERSONAL_USE.ttf");
     ALLEGRO_COLOR yellow = al_map_rgb(255, 255, 0);
     ALLEGRO_COLOR red = al_map_rgb(255, 50, 50);
     ALLEGRO_COLOR white = al_map_rgb(255, 255, 255);
 
     ALLEGRO_BITMAP* background = al_load_bitmap("start.png");
-
+    if(!background)
+        throw NewException("start.png");
 
     al_draw_bitmap(background, 0, 0, 0);
     graphics.print_text(Silicone,640, 120, red, "TETRIS");
-    graphics.print_text(font_signature,1000, 450, white, "Blazej Rakwic");
+    graphics.print_text(AveBetwan,1000, 450, white, "Blazej Rakwic");
     al_flip_display();
     al_rest(3.0f);
-    graphics.print_text(font_signature, 640, 300, yellow, "Press ENTER to continue");
+    graphics.print_text(AveBetwan, 640, 300, yellow, "Press ENTER to continue");
 
     al_flip_display();
 

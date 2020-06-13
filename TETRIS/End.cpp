@@ -2,6 +2,9 @@
 
 bool End::start(ALLEGRO_DISPLAY* display, int points, Graphics graphics)
 {
+
+
+
     al_init_font_addon();
     al_init_ttf_addon();
     al_init_image_addon();
@@ -16,6 +19,17 @@ bool End::start(ALLEGRO_DISPLAY* display, int points, Graphics graphics)
     ALLEGRO_BITMAP* orange_button = al_load_bitmap("orange_button.png");
     ALLEGRO_BITMAP* red_button = al_load_bitmap("red_button.png");
     ALLEGRO_BITMAP* scoreboard = al_load_bitmap("scoreboard.png");
+    if (!scoreboard)
+        throw (NewException("scoreboard.png"));
+
+
+    ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
+
+    ALLEGRO_EVENT events;
+
+    al_install_mouse();
+
+
 
     graphics.print_text(font_silicone_big, 600, 200, crimson, "GAME OVER");
     al_flip_display();
@@ -24,7 +38,7 @@ bool End::start(ALLEGRO_DISPLAY* display, int points, Graphics graphics)
 
 
     al_draw_bitmap(scoreboard,190,-200,0);
-    graphics.print_text(font_silicone, 600, 200, crimson, "THIS IS THE END");
+    graphics.print_text(font_silicone, 600, 200, crimson, "GAME OVER");
     
     
     graphics.print_text(font_silicone, 500, 350, crimson, "SCORE : ");
@@ -33,11 +47,11 @@ bool End::start(ALLEGRO_DISPLAY* display, int points, Graphics graphics)
     graphics.print_button(font_roboto_black_button, 700, 500, aquamarine, "EXIT", orange_button);
     al_flip_display();
 
-    al_install_mouse();
+   
 
-    ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
+
     al_register_event_source(event_queue, al_get_mouse_event_source());
-    ALLEGRO_EVENT events;
+
 
     bool done = false, key_escape;
     int mouse_x, mouse_y, click_x, click_y;
@@ -68,7 +82,7 @@ bool End::start(ALLEGRO_DISPLAY* display, int points, Graphics graphics)
 
                 else if (click_x > 700 and click_x < 860 and click_y>500 and click_y < 580) {  //exit
                     done = true;
-                    key_escape = true;
+                    key_escape = true; //hard exit
                 
                 }
             }
@@ -76,7 +90,6 @@ bool End::start(ALLEGRO_DISPLAY* display, int points, Graphics graphics)
     }
 
     al_clear_to_color(al_map_rgb(0, 0, 0));
-
 
 	return key_escape;
 }

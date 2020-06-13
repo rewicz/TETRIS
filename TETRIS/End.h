@@ -6,6 +6,7 @@
 #include "allegro5/allegro_ttf.h"
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_image.h"
+#include "NewException.h"
 
 class End 
 {

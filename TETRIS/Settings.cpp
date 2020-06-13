@@ -1,51 +1,54 @@
 
-#include "Graphics.h"
-#include "allegro5/allegro.h"
-#include"allegro5/allegro_font.h"
-#include"allegro5/allegro_ttf.h"
-#include "allegro5/allegro_image.h"
-#include <iostream>
-#include "Game.h"
-#include "Figures.h"
-#include "start.h"
 #include "Settings.h"
-#include "Table.h"
+
 
 
 
 bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &configuration)
 {    
+    al_clear_to_color(al_map_rgb(0, 0, 0));
 
     al_init_font_addon();
     al_init_ttf_addon();
     al_init_image_addon();
+    al_install_keyboard();
+    al_install_mouse();
     
     ALLEGRO_FONT* font = al_load_font("Silicone.ttf", 45, NULL);
     ALLEGRO_FONT* font_signature = al_load_font("AveBetwan_PERSONAL_USE.ttf", 30, NULL);
     ALLEGRO_FONT* font_roboto_black = al_load_font("Roboto-black.ttf",35,NULL);
-    ALLEGRO_FONT* font_roboto_black_button = al_load_font("Roboto-black.ttf",25,NULL);
 
-    ALLEGRO_COLOR yellow = al_map_rgb(255, 255, 0);
-    
+    ALLEGRO_FONT* font_roboto_black_button = al_load_font("Roboto-black.ttf", 25, NULL);
+    if (!font_roboto_black)
+        throw (NewException("Roboto-black.ttf"));
+
     ALLEGRO_BITMAP* orange_button = al_load_bitmap("orange_button.png");
+    if (!orange_button)
+        throw (NewException("orange_button.png"));
+
     ALLEGRO_BITMAP* red_button = al_load_bitmap("red_button.png");
+    if (!red_button)
+        throw (NewException("red_button.png"));
 
     ALLEGRO_BITMAP* background = al_load_bitmap("settings.png");
-
-
-
-
-    al_install_keyboard();
-    al_install_mouse();
-
+    if (!background)
+        throw (NewException("settings.png"));
 
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
+
+    ALLEGRO_COLOR yellow = al_map_rgb(255, 255, 0);
+
     ALLEGRO_EVENT events;
+
+
+
+
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_register_event_source(event_queue, al_get_mouse_event_source());
     
 
     bool done = false, draw = true, key_escape=false;
+
     int mouse_x, mouse_y,click_x,click_y;
 
     while (!done) {
@@ -66,7 +69,6 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
         else if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { //hard exit
             key_escape = true;
             done = true;  
-            std::cout << "cos"; 
         }
 
         else  if (events.type == ALLEGRO_EVENT_MOUSE_AXES) {
@@ -109,7 +111,7 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
         }
        
         if (draw) {
-            al_clear_to_color(al_map_rgb(0, 0, 0));
+
             al_draw_bitmap(background, 0, 0, 0);
             graphics.print_text(font, 640, 50, yellow, "SETTINGS");
 
@@ -175,9 +177,20 @@ bool Settings::start(ALLEGRO_DISPLAY* display, Graphics graphics,Configuration &
 
 
     }
+
     al_destroy_font(font);
-    al_destroy_font(font_roboto_black);
     al_destroy_font(font_signature);
+    al_destroy_font(font_roboto_black);
     al_destroy_font(font_roboto_black_button);
+
+    al_destroy_bitmap(orange_button);
+    al_destroy_bitmap(red_button);
+    al_destroy_bitmap(background);
+
+    al_destroy_event_queue(event_queue);
+    
+    
     return key_escape;
+
+
 }

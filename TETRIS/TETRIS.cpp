@@ -9,17 +9,10 @@
 #include "test.h"
 using namespace std;
 
-int main(int argc, char** argv)
-{
-  //  test test2;
-   // test2.go();
-
-
-
+int main(int argc, char** argv){
     View view;
-    // try
-    view.view();
 
+    view.view();
 
     return 0;
 }
